@@ -1,2 +1,6 @@
-# quickstart
+# Introduction
 quickstart
+
+# Preferences
+
+Preferences
