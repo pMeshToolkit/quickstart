@@ -26,9 +26,9 @@ It is built using the goTenna SDK.
 
 The script interpreter is Javascript (using JavaScriptCore), three parameters are passed into the script:
 
-Message = The message sent to the App.
-lat = The current latitude of the device.
-lng = the current longitude of the device.
+` Message ` = The message sent to the App.
+` lat ` = The current latitude of the device.
+`  lng ` = the current longitude of the device.
 
 At the end of the script you must return something - if nothing is returned the message will not respond back to the other goTenna.
 
@@ -36,7 +36,7 @@ The following functions are available to the script through the script context:
 
 ` print(string) `- Adds a message to the activity log.
 ` getData(url) `- returns data from the url as a string.
-` postData(url,parameters) ` - returns data from the url as a string with the parameter string being passed as post data. The parameters must be url encoded.
+` postData(url,parameters) ` - returns data from the url as a string with the parameter string being passed as post data - the parameters must be url encoded.
 
 The default script is:
 
@@ -50,7 +50,6 @@ The url schema is “mtk” and requests can be made similar to ` mtk://shout?me
 
 These can be tested using the Workflow app and the open URLs component.
 
-
 External calls to the HTTP server are:
 
 ``` curl ‘http://192.168.1.116:8080/message?message=hello%20from%20a%20goTenna&guid=GUID' ```
@@ -63,6 +62,16 @@ Or:
 
 ``` curl ‘http://192.168.1.116:8080/script?message=shout%20from%20a%20goTenna' ```
 
+
+# Pairing
+
+When the Mesh Toolkit App is first launch it will prompt for the GUID to be set, we recommend that this is set to the same value as in the goTenna App.
+
+Once this is set when you change to the Messages tab, the App will automatically pair with the goTenna in the same way as the goTenna App.
+
+Once the GUID is set the App will automatically pair with the goTenna when it is launched.
+
 # Example code
 
-Example code is currently under development
+Added example Javascript script to get weather data from api.openweathermap.org.
+
