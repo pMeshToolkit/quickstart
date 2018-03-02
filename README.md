@@ -75,3 +75,7 @@ Once the GUID is set the App will automatically pair with the goTenna when it is
 
 Added example Javascript script to get weather data from api.openweathermap.org.
 
+2/March/2018 Added example based on the excelent article [Raspberry Pi lightning strikes](https://hexaly.se/2017/06/27/lightning-strikes-detection-station-that-tweets-storm-alerts/) using the [code from here](https://github.com/Hexalyse/LightningTweeter) and [here](https://github.com/pcfens/RaspberryPi-AS3935/).
+
+
+
