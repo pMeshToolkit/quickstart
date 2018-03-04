@@ -30,6 +30,11 @@ The script interpreter is Javascript (using JavaScriptCore), three parameters ar
 ` lat ` = The current latitude of the device.
 `  lng ` = the current longitude of the device.
 
+Release 1.3:
+
+`  guid ` = the guid of the goTenna which generated the message.
+
+
 At the end of the script you must return something - if nothing is returned the message will not respond back to the other goTenna.
 
 The following functions are available to the script through the script context:
@@ -37,6 +42,14 @@ The following functions are available to the script through the script context:
 ` print(string) `- Adds a message to the activity log.
 ` getData(url) `- returns data from the url as a string.
 ` postData(url,parameters) ` - returns data from the url as a string with the parameter string being passed as post data - the parameters must be url encoded.
+
+Release 1.3 added the following functions:
+
+` network_status() `- Returns a string describing the current network type (e.g. Wifi).
+` host_reachable() `- Checks if the network can reach a known host (www.apple.com).
+` cell_status() `- Returns a string to indicate if cellular data is available.
+` gotenna_battery() `- Returns the goTenna battery level.
+` iphone_battery() `- Returns the iPhone battery level.
 
 The default script is:
 
