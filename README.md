@@ -63,7 +63,7 @@ The default script is:
 print('Default message: '+message + ' Lat:'+lat+' Lng:'+lng);
 return message;
 ```
-If the app is set up to redirect messages to an external webserver the parameters are appended to the URL in the format ` ?message=MESSAGE&lat=LATITUDE&lng=LONGITUDE`
+If the app is set up to redirect messages to an external webserver the parameters are appended to the URL in the format ` ?message=MESSAGE&lat=LATITUDE&lng=LONGITUDE?guid=GUID`
 
 The url schema is “mtk” and requests can be made similar to ` mtk://shout?message=Hello ` or  ` mtk://message?message=MESSAGE?guid=GUID `where GUID is the guid of the device to send to.
 
