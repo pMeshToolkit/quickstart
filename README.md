@@ -1,6 +1,6 @@
 # Introduction
 
-Mesh Toolkit is an iOS App built on goTenna, this repository provides sample code for the App which will be available from the iTunes App Store.
+Mesh Developers Toolkit is an iOS App built on goTenna, this repository provides sample code for the App which will be available from the iTunes App Store.
 
 Mesh Toolkit has been built using the goTenna SDK.
 
@@ -18,6 +18,25 @@ For example, a short cut can be implement using a home screen widget and the Wor
 
 Note: To provide web services this App runs in the foreground and does not idle which will reduce battery life therefore we recommend that it is run using external power.
 
+Version 1.5 adds a number of new features:
+
+The script can now scheduled to run approximately every minute.
+
+A preference has been added to enable this.
+
+Also when the setting is enabled the script is run after Mesh Toolkit has connected to the goTenna.
+
+To enable you to identify what event has called the script - the message is set to “startup_event” or “timer_event”.
+
+This release now stores messages and devices in a sqlite3 database which can be accessed as JSON from your script or a web request (“/script?sql=“).
+
+For example if you wished to get all devices which have not connected to Mesh Toolkit in the last five minutes the sql would be:
+
+` select * from gtdevices where timestamp < datetime(current_timestamp,'-5 minutes'); `
+
+A setting has been added to disable this logging (messages and devices are stored for 48 hours).
+
+
 # Usage notes
 
 NOTE: This application is designed to work with goTenna off-grid messaging devices (https://gotenna.com).
@@ -28,7 +47,7 @@ The script interpreter is Javascript (using JavaScriptCore), three parameters ar
 
 ` Message ` = The message sent to the App.
 ` lat ` = The current latitude of the device.
-`  lng ` = the current longitude of the device.
+` lng ` = the current longitude of the device.
 
 Release 1.3:
 
@@ -57,11 +76,28 @@ Release 1.3 added the following functions:
 
 ` iphone_battery() `- Returns the iPhone battery level.
 
+Release 1.5 added the following functions:
+
+` select(sqlstatement) ` - Executes a SQL Statement against the logging tables ( ("gtmessages" and "gtdevices").
+
+ ` send(targetguid,message)  ` - Sends the message to the target device.
+
+ ` shout(message) ` - sends a shout message.
+
 The default script is:
 
 ```
 print('Default message: '+message + ' Lat:'+lat+' Lng:'+lng);
-return message;
+
+if (message == "timer_event") {
+    send("1234567890","shout message timer");
+    return '';
+} else if (message == "startup_event") {
+    shout("Startup");
+    return "";
+} else {
+    return message;
+}
 ```
 If the app is set up to redirect messages to an external webserver the parameters are appended to the URL in the format ` ?message=MESSAGE&lat=LATITUDE&lng=LONGITUDE?guid=GUID`
 
