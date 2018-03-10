@@ -1,6 +1,6 @@
 # Introduction
 
-Mesh Developers Toolkit is an iOS App built on goTenna, this repository provides sample code for the App which will be available from the iTunes App Store.
+Mesh Developers Toolkit is an iOS App built on goTenna, this repository provides sample code for the App which is now available from the iTunes App Store.
 
 Mesh Toolkit has been built using the goTenna SDK.
 
@@ -132,5 +132,6 @@ Added example Javascript script to get weather data from api.openweathermap.org.
 
 2/March/2018 Added example based on the excelent article [Raspberry Pi lightning strikes](https://hexaly.se/2017/06/27/lightning-strikes-detection-station-that-tweets-storm-alerts/) using the [code from here](https://github.com/Hexalyse/LightningTweeter) and [here](https://github.com/pcfens/RaspberryPi-AS3935/).
 
+10/March/2018 For clarity (and if you need to restore it) the default script created when the App is installed has been added to the examples.
 
 
