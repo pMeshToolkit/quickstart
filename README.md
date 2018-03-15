@@ -28,7 +28,7 @@ Also when the setting is enabled the script is run after Mesh Toolkit has connec
 
 To enable you to identify what event has called the script - the message is set to “startup_event” or “timer_event”.
 
-This release now stores messages and devices in a sqlite3 database which can be accessed as JSON from your script or a web request (“/script?sql=“).
+Mesh Toolkit now stores messages and devices in a sqlite3 database which can be accessed as JSON from your script or a web request (“/script?sql=“).
 
 For example if you wished to get all devices which have not connected to Mesh Toolkit in the last five minutes the sql would be:
 
@@ -36,6 +36,19 @@ For example if you wished to get all devices which have not connected to Mesh To
 
 A setting has been added to disable this logging (messages and devices are stored for 48 hours).
 
+Version 1.6 adds:
+
+An activity spinner is now shown when Mesh Developers Toolkit is connecting to a goTenna.
+
+New functionality has been added to allow the Mesh Developers Toolkit to request the position of a goTenna.
+
+A new Javascript command “find(guid)” sends a location request to the remote goTenna in the background.
+
+A new web server request “/find?guid=GUID” allows you to send a position request from another App or an url request.
+
+Swiping right on an incoming message on the Message tab also allows you to send a position request.
+
+The last position of a goTenna is available in the SQL table “gtlastfix” and the track in the table "'gttracks".
 
 # Usage notes
 
@@ -52,7 +65,6 @@ The script interpreter is Javascript (using JavaScriptCore), three parameters ar
 Release 1.3:
 
 `  guid ` = the guid of the goTenna which generated the message.
-
 
 At the end of the script you must return something - if nothing is returned the message will not respond back to the other goTenna.
 
@@ -78,12 +90,14 @@ Release 1.3 added the following functions:
 
 Release 1.5 added the following functions:
 
-` select(sqlstatement) ` - Executes a SQL Statement against the logging tables ( ("gtmessages" and "gtdevices").
+` select(sqlstatement) ` - Executes a SQL Statement against the logging tables ( ("gtmessages", "gtdevices", "gtlastfix" and "gttracks").
 
  ` send(targetguid,message)  ` - Sends the message to the target device.
 
  ` shout(message) ` - sends a shout message.
 
+` find(guid) ` - sends a location request to the goTenna (note: guid is a number).
+ 
 The default script is:
 
 ```
