@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <meta name="apple-mobile-web-app-title"
+            content="Quick Message">
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <meta name="apple-mobile-web-app-status-bar-style"content="black"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+            <title>
+                Quick Message
+            </title>
+            <style type="text/css">
+                body {
+                    font-family: sans-serif;
+                    font-size: 16px;
+                    text-align: left;
+                    padding: 5px;
+                    margin: 0px;
+                }
+            input {
+                font-size:16px;
+            }
+            tr {
+                background: #ffffff;
+                list-style: none;
+                padding: 10px;
+                margin: 5px;
+            }
+            tr:nth-child(even) {
+                background: #efefef;
+            }
+            td {
+                font-size:16px;
+            }
+            button {
+                font-size:16px;
+                border-radius: 0px;
+                background-color: #008CBA;
+                color: white;
+            }
+            </style>
+            <script>
+                var clientprompted = null;
+                var username = "USERNAME";
+                function doMessage() {
+                    if (localStorage.username) {
+                        username = localStorage.username;
+                    }
+                    if (clientprompted == null) {
+                        username = prompt("Please enter your name:", username);
+                        if (username != null && username.trim() != '') {
+                            clientprompted = 1;
+                        }
+                    }
+                    if (username != null && username.trim() != "" && username.trim().toUpperCase() != "USERNAME") {
+                        localStorage.username = username;
+                        var searchstring = document.getElementById("messageText").value;
+                        if (searchstring.trim() != '') {
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", "/"+username+"^"+searchstring, true);
+                            xhttp.send();
+                            document.getElementById("messageText").value = '';
+                        }
+                    } else {
+                        alert("You must enter a unique username to send messages");
+                        username = "Username";
+                        clientprompted = null;
+                     }
+                }
+            function readMessages() {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        messageElements = JSON.parse(this.responseText);
+                        console.log(messageElements);
+                        messageText = '<table width="100%"><tr><td>'+messageElements.join('</td></tr><tr><td>')+'</td></tr></table>';
+                        console.log(messageText);
+                        document.getElementById("messageList").innerHTML = messageText;
+                    }
+                };
+                xhttp.open("GET", "/messages", true);
+                xhttp.send();
+            }
+            window.setInterval(readMessages, 5000);
+        </script>
+    </head>
+    <body>
+        <table width="100%">
+            <tr><td >Message:</td><td width="100%">
+                <input type="text" id="messageText" style="width:100%" onKeyDown="if(event.keyCode==13) doMessage();"></input>
+            </td><td>
+                <button type="button" style="width:80px;spadding:2px;" onclick="doMessage();">Send</button>
+            </td></tr>
+        </table>
+        <hr>
+        <div id="messageList"></div>
+    </body>
+</html>

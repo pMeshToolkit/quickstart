@@ -148,4 +148,8 @@ Added example Javascript script to get weather data from api.openweathermap.org.
 
 10/March/2018 For clarity (and if you need to restore it) the default script created when the App is installed has been added to the examples.
 
+2/March/2019 Added a sample Application which uses the goTenna Python SDK to provide an "on the go" client "GoTennaHub". 
 
+The client runs on a browser allowing multiple users to send messages across the goTenna network and allows you to build a network of ad-hock goTenna access points.
+
+To enable the client to function you will need a API Key from [goTenna](https://gotenna.com/pages/sdk) and an example of a suitable hardware configuration is described [here](https://meshcommunity.gotenna.com/t/gotenna-python-sdk/4532/7).
