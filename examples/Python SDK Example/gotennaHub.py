@@ -1,10 +1,17 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 import json
 import datetime
 import time
+import socket
+import sys
+
 
 # Globals
 messagesArray = []
+scriptPath = sys.path[0]
+deviceStatus = 'No Status'
 
 def addMessage(message):
     messagesArray.insert(0,message)
@@ -20,6 +27,7 @@ print 'goTenna Library loaded'
 
 SDK_TOKEN = '**** SDK TOKEN GOES HERE ****'
 
+
 def event_callback(event):
     if (event.event_type == goTenna.driver.Event.MESSAGE):
         if event.message.payload.message != '':
@@ -28,6 +36,9 @@ def event_callback(event):
             addMessage(newMessage)
         else:
             print('could not decode message.')
+    elif (event.event_type == 3):
+        global deviceStatus
+        deviceStatus = ' 🔋'+str(event.status['battery'])+'% ♨️'+str(event.status['temperature'])+'c'
     elif (event.event_type != 3):
         print(event.event_type)
 
@@ -53,6 +64,7 @@ api.start()
 print 'API Started'
 
 
+
 # Setup Webserver
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 import urllib
@@ -64,7 +76,7 @@ class myHTTPhandler(BaseHTTPRequestHandler):
         responseMessage = 'No handler'
         if (message == ''):
             # Default request - send default html
-            fileHandle = open("/gotenna/index.html", "r")
+            fileHandle = open(scriptPath+'/index.html', 'r')
             responseMessage = fileHandle.read()
             fileHandle.close()
         elif (message == 'index.html' or message == 'favicon.ico'):
@@ -72,7 +84,7 @@ class myHTTPhandler(BaseHTTPRequestHandler):
             responseMessage = 'Ignoring request'
         elif (message == 'timestamp'):
             print 'Timestamp request'
-            responseMessage = 'Keepalive ' + datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+            responseMessage = socket.gethostname()+':Status ' + datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S') + deviceStatus
             send(responseMessage)
         elif (message == 'messages'):
             responseMessage = json.dumps(messagesArray)

@@ -37,6 +37,22 @@
                 background-color: #008CBA;
                 color: white;
             }
+            .fixed {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background-color:white;
+                padding: 5px;
+                margin: 0px;
+            }
+            
+            .spacer {
+                display:block;
+                width:100%;
+                height:55px;
+            }
+            
             </style>
             <script>
                 var clientprompted = null;
@@ -84,6 +100,7 @@
         </script>
     </head>
     <body>
+        <div class="fixed">
         <table width="100%">
             <tr><td >Message:</td><td width="100%">
                 <input type="text" id="messageText" style="width:100%" onKeyDown="if(event.keyCode==13) doMessage();"></input>
@@ -92,6 +109,8 @@
             </td></tr>
         </table>
         <hr>
-        <div id="messageList"></div>
+        </div>
+        <div class="spacer"></div>
+        <div id="messageList" ></div>
     </body>
 </html>
